@@ -9,8 +9,13 @@ body{
     gap: 1rem;
 }
 
-#characters a {
+#characters .character{
     flex-grow: 1;
+    margin: 1rem 0;
+}
+
+#characters a {
+    
     padding: 1rem 2rem;
     background-color: #eee;
     font-family: 'GelicaRegular';
@@ -35,4 +40,5 @@ body{
 
 .characterDetails{
     display:none;
+    padding: 2rem;
 }

@@ -32,15 +32,18 @@ axios.get('https://bobsburgers-api.herokuapp.com/characters')
     menuItem.innerHTML = character.name;
     menuItem.addEventListener("click", (e)=>{
 
-        document.querySelector('.character')
-            .style.width= 'auto';
-
-        document.querySelector('#character_'+character.id)
-            .style.width= '100vw';
-
+        // reset the appearance of all characters
+        document.querySelectorAll('.character').forEach((el)=>{
+            el.style.width ="auto";
+        })
         document.querySelectorAll('.characterDetails').forEach((el)=>{
             el.style.display ="none";
         })
+
+        // apply 
+        document.querySelector('#character_'+character.id)
+            .style.width= '100vw'; 
+        
         document.querySelector('#character_'+character.id+' .characterDetails')
             .style.display ="block";
     })
