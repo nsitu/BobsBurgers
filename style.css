@@ -1,44 +1,8 @@
 body{
     font-family: 'Poppins', sans-serif;
    
-}
+} 
 
-#characters {
-    display: flex;
-    flex-wrap:wrap;
-    gap: 1rem;
-}
-
-#characters .character{
-    flex-grow: 1;
-    margin: 1rem 0;
-}
-
-#characters a {
-    
-    padding: 1rem 2rem;
-    background-color: #eee;
-    font-family: 'GelicaRegular';
-}
-
-#characters a.Blonde {
-    background-color: rgb(255, 230, 0);
-}
-#characters a.Brown {
-    background-color: rgb(148, 81, 26);
-    color: rgb(236, 216, 198);
-}
-#characters a.Black {
-    background-color: rgb(9, 12, 29);
-    color: rgb(198, 200, 216);
-}
-
-#characters a.GoldenBlonde {
-    background-color: rgb(255, 198, 77);
-    color: #fff;
-}
-
-.characterDetails{
-    display:none;
+.characterDetails{ 
     padding: 2rem;
 }

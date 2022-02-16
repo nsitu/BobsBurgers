@@ -14,6 +14,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
 
+    <!-- CSS for the autocomplete JS library-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/css/autoComplete.min.css">
+
+
     <!-- axios for making Http requests  -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -21,9 +25,18 @@
   </head>
   <body>
       <h1>Bob's Burgers</h1>
+
+      <!--  this input element is targeted by the autocompleteJS library --->
+      <input id="autoComplete">
+
       <main id="characters">
         <!-- javascript will populate this  -->
       </main>
-	<script src="script.js"></script>
+
+      <!-- The autocomplete JS library helps to build search UI -->
+      <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+ 
+      <!-- javascript to fetch and display data everything. -->
+	    <script src="script.js"></script>
   </body>
 </html>

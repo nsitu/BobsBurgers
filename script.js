@@ -1,12 +1,36 @@
 
 const container = document.querySelector('#characters');
 
-
 axios.get('https://bobsburgers-api.herokuapp.com/characters')
   .then(function (response) {
-    for(character of response.data){
-        renderCharacter(character);
-    }
+
+    // an array of character objects will be stored in this variable. 
+    let characters = response.data;
+
+    // let's create an array with just the names of the characters (strings only)
+    // we will use this array of strings to  populate the autocomplete.
+    // see also: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+    const characterNames = characters.map( character => character.name)
+
+    // create the autocomplete using the character data. 
+    const autoCompleteJS = new autoComplete({
+      placeHolder: "Search for Characters...",
+          data: {
+              src: characterNames
+          }
+      });
+      // whenever a character is selected, 
+      // find the character in the characters array,
+      // and pass the data along for rendering
+      autoCompleteJS.input.addEventListener("selection",  (event) => {
+        // using the array filter to locate the character 
+        // whose name matches the autocomplete. 
+        // see also: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+        const [selected] = characters.filter( 
+            character => character.name == event.detail.selection.value 
+          ) ;
+        renderCharacter(selected); 
+      }); 
   })
   .catch(function (error) {
     // handle error
@@ -15,51 +39,20 @@ axios.get('https://bobsburgers-api.herokuapp.com/characters')
 
 
   const renderCharacter  = (character) => {
-    console.log('Rendering');
-    console.log(character);
 
-    // overall container per-character
-    let characterContainer = document.createElement('div');
-    characterContainer.setAttribute('id','character_'+character.id )
-    characterContainer.classList.add('character');
-
-    // menu Item for character
-    let menuItem = document.createElement('a');
-    if ( character.hairColor != null){
-        let cssClass = character.hairColor.replaceAll(/\s/g,'');
-        menuItem.classList.add(cssClass);
-    }
-    menuItem.innerHTML = character.name;
-    menuItem.addEventListener("click", (e)=>{
-
-        // reset the appearance of all characters
-        document.querySelectorAll('.character').forEach((el)=>{
-            el.style.width ="auto";
-        })
-        document.querySelectorAll('.characterDetails').forEach((el)=>{
-            el.style.display ="none";
-        })
-
-        // apply 
-        document.querySelector('#character_'+character.id)
-            .style.width= '100vw'; 
-        
-        document.querySelector('#character_'+character.id+' .characterDetails')
-            .style.display ="block";
-    })
-    characterContainer.appendChild(menuItem)
-
-    // character details
+    // reset the contents of the container to remove previous result.
+    container.innerHTML = '';
+    
+    // create a template for character details.
+    // popuate it with data 
     let characterDetails = document.createElement('div');
-    characterDetails.innerHTML = `<img src="${character.image}"> `;
-    characterDetails.classList.add('characterDetails');
-    characterContainer.appendChild(characterDetails)
+    characterDetails.classList.add('characterDetails'); 
+    characterDetails.innerHTML = 
+      `<img src="${character.image}">
+      <p>${character.name}</p>`;
 
-        // add everything to the page.
-    container.appendChild(characterContainer);
-
-    
-    
+    // add everything to the page.
+    container.appendChild(characterDetails); 
 
 
   }
